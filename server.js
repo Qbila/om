@@ -5,10 +5,9 @@
 require('env2')('./config.env');
 // const MongoClient = require('mongodb').MongoClient;
 const Hapi = require('hapi');
-// const HapiSwagger = require('hapi-swagger');
+const HapiSwagger = require('hapi-swagger');
 const Inert = require('inert');
 const Path = require('path');
-const Path = require('vision');
 // const Loggly = require('node-loggly-bulk');
 // const _ = require('lodash');
 // const Useragent = require('useragent');
@@ -73,24 +72,24 @@ SERVER.register(Inert, function(err) {
 });
 
 
-// let hapiSwaggerOptions = {
-//   'info': {
-//     'title': 'API Documentation',
-//     'version': '1.0.0',
-//     'contact': {
-//         'name': 'Ashish Rana',
-//         'email': 'ashishr@wayforward.io'
-//     },
-//   }
-// };
+let hapiSwaggerOptions = {
+  'info': {
+    'title': 'API Documentation',
+    'version': '1.0.0',
+    'contact': {
+        'name': 'Ashish Rana',
+        'email': 'ashishr@wayforward.io'
+    },
+  }
+};
 
 /**
  * Register all Modules as Plugins Here
  */
 let plugins = [
 	{ register : require('vision') },
-  { register : require('./modules/index.js') },
-  // { register : HapiSwagger, options: hapiSwaggerOptions },
+  { register : require('./server/index.js') },
+  { register : HapiSwagger, options: hapiSwaggerOptions },
   // { register : require('hapi-alive') }
 ];
 
