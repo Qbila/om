@@ -1,12 +1,22 @@
 {
   "name": "javascript-development-environment",
   "version": "1.0.0",
-  "description": "Qbila JavaScript development environment",
-  "scripts": {},
-  "author": "Ashish Rana",
+  "description": "JavaScript development environment",
+  "scripts": {
+    "prestart": "npm-run-all --parallel prestartjs removeBuild",
+    "prestartjs": "babel-node scripts/preStart.js",
+    "start": "npm-run-all --parallel security-check initServer build",
+    "initServer": "babel-node server.js",
+    "security-check": "nsp check",
+    "localtunnel": "lt --port 3000",
+    "share": "npm-run-all --parallel initServer localtunnel",
+    "removeBuild": "rm -rf public/dist",
+    "build": "webpack --config webpack.config.dev.js"
+  },
+  "author": "Cory House",
   "contributors": [
     {
-      "name": "Cory House"
+      "name": "Ashish Rana"
     }
   ],
   "license": "MIT",
@@ -17,6 +27,7 @@
     "hapi-swagger": "^7.7.0",
     "inert": "^4.2.1",
     "vision": "^4.1.1",
+    "webpack": "^3.5.5",
     "whatwg-fetch": "1.0.0"
   },
   "devDependencies": {
@@ -35,6 +46,7 @@
     "eslint-plugin-import": "2.0.1",
     "eslint-watch": "2.1.14",
     "extract-text-webpack-plugin": "1.0.1",
+    "hapi-webpack-plugin": "^2.0.0",
     "html-webpack-plugin": "2.22.0",
     "jsdom": "9.8.0",
     "json-schema-faker": "0.3.6",
@@ -48,9 +60,8 @@
     "open": "0.0.5",
     "rimraf": "2.5.4",
     "style-loader": "0.13.1",
-    "webpack": "1.13.2",
-    "webpack-dev-middleware": "1.8.4",
-    "webpack-hot-middleware": "2.13.0",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-hot-middleware": "^2.18.2",
     "webpack-md5-hash": "0.0.5"
   }
 }

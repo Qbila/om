@@ -7,7 +7,7 @@ exports.register = function(server, options, next) {
 
         reply.view(
           'error/pagenotfound',
-          {title : 'Page Not Found'}
+          { title : 'Page Not Found' }
         );
       }
 

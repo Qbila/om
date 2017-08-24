@@ -1,16 +1,18 @@
-/* globals SERVER: true, LOGGLY: true, MONGODB: true, DB: true */
+/* globals SERVER: true */
 
 'use strict';
 
 require('env2')('./config.env');
 // const MongoClient = require('mongodb').MongoClient;
-const Hapi = require('hapi');
-const HapiSwagger = require('hapi-swagger');
-const Inert = require('inert');
-const Path = require('path');
+import Hapi from 'hapi';
+import HapiSwagger from 'hapi-swagger';
+import Inert from 'inert';
+import Path from 'path';
 // const Loggly = require('node-loggly-bulk');
-// const _ = require('lodash');
+const _ = require('lodash');
 // const Useragent = require('useragent');
+
+// import WebpackPlugin from 'hapi-webpack-plugin';
 
 // TODO : how about having id for every server session. and give that id for logs?
 global.SERVER = new Hapi.Server();
@@ -89,7 +91,8 @@ let hapiSwaggerOptions = {
 let plugins = [
 	{ register : require('vision') },
   { register : require('./server/index.js') },
-  { register : HapiSwagger, options: hapiSwaggerOptions },
+  { register : HapiSwagger, options: hapiSwaggerOptions }
+  // { register: WebpackPlugin, options: './webpack.config.dev.js' }
   // { register : require('hapi-alive') }
 ];
 
@@ -106,9 +109,9 @@ SERVER.register(
     SERVER.views({
       engines: { html: require('handlebars') },
 		  layout : true,
-      path: __dirname + '/client/views',
-  		layoutPath : Path.join(__dirname, './client/views/layouts'), //setting Global Layout,
-  		partialsPath : Path.join(__dirname,'./client/partials') //partial Views
+      path: Path.resolve(__dirname, 'client/views'),
+  		layoutPath : Path.resolve(__dirname, 'client/views/layouts'), //setting Global Layout,
+  		partialsPath : Path.resolve(__dirname,'client/partials') //partial Views
     });
 });
 
@@ -124,17 +127,16 @@ SERVER.ext('onPreAuth', function(request, reply) {
 
 
 SERVER.ext('onPreResponse', function(request, reply){
-  if (request.route.path !== '/public/{path*}' && request.route.path !== '/{p*}') {
-    // // get all the users role and posting data
-    // LOGGLY.log({
-    //   useragent: Useragent.parse(request.headers['user-agent']).toJSON(),
-    //   requestInfo: request.info,
-    //   level: 'info',
-    //   requestedUrl: request.url.href,
-    //   statuscode: request.response.statusCode
-    // });
-
-  }
+  // if (request.route.path !== '/public/{path*}' && request.route.path !== '/{p*}') {
+  //   // // get all the users role and posting data
+  //   // LOGGLY.log({
+  //   //   useragent: Useragent.parse(request.headers['user-agent']).toJSON(),
+  //   //   requestInfo: request.info,
+  //   //   level: 'info',
+  //   //   requestedUrl: request.url.href,
+  //   //   statuscode: request.response.statusCode
+  //   // });
+  // }
 
   if(request.response.output){
     // LOGGLY.log({
@@ -180,14 +182,14 @@ startServer();
 // STARTING THE SERVER
 function startServer() {
   SERVER.start(function(err) {
-    // if(!_.isNil( err )) {
-    //   LOGGLY.log({
-    //     info: 'server failed to start',
-    //     systemMessage: err,
-    //     level: 'error'
-    //   });
-    //   throw err;
-    // }
+    if(!_.isNil( err )) {
+      // LOGGLY.log({
+      //   info: 'server failed to start',
+      //   systemMessage: err,
+      //   level: 'error'
+      // });
+      throw err;
+    }
 
     console.log('SERVER running at ', SERVER.info.uri);
 
@@ -201,14 +203,14 @@ function startServer() {
 
 function stopServer() {
   SERVER.stop({}, (err) => {
-    // if(!_.isNil( err )) {
-    //   LOGGLY.log({
-    //     info: 'server stoping failed',
-    //     systemMessage: err,
-    //     level: 'error'
-    //   });
-    //   throw err;
-    // }
+    if(!_.isNil( err )) {
+      // LOGGLY.log({
+      //   info: 'server stoping failed',
+      //   systemMessage: err,
+      //   level: 'error'
+      // });
+      throw err;
+    }
     // LOGGLY.log({
     //   info: 'SERVER stopped successfully.',
     //   level: 'info'
