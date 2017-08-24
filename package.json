@@ -6,7 +6,7 @@
     "predev-start": "npm-run-all --parallel prestartjs removeBuild",
     "prestartjs": "babel-node scripts/preStart.js",
     "dev-start": "npm-run-all --parallel security-check lint:watch initServer test:watch build-dev",
-    "prod-start": "npm-run-all --parallel security-check lint:watch initServer test:watch build-prod",
+    "start": "npm-run-all --parallel security-check lint initServer test build-prod",
     "initServer": "babel-node server.js",
     "security-check": "nsp check",
     "localtunnel": "lt --port 3000",
