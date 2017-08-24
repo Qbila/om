@@ -1,5 +1,7 @@
 /* globals SERVER: true */
 
+/* eslint-disable no-console */
+
 'use strict';
 
 require('env2')('./config.env');
@@ -108,10 +110,10 @@ SERVER.register(
 
     SERVER.views({
       engines: { html: require('handlebars') },
-		  layout : true,
+      layout : true,
       path: Path.resolve(__dirname, 'client/views'),
-  		layoutPath : Path.resolve(__dirname, 'client/views/layouts'), //setting Global Layout,
-  		partialsPath : Path.resolve(__dirname,'client/partials') //partial Views
+      layoutPath : Path.resolve(__dirname, 'client/views/layouts'), //setting Global Layout,
+      partialsPath : Path.resolve(__dirname,'client/partials') //partial Views
     });
 });
 
@@ -201,7 +203,7 @@ function startServer() {
   });
 }
 
-function stopServer() {
+function stopServer() { // eslint-disable-line no-unused-vars
   SERVER.stop({}, (err) => {
     if(!_.isNil( err )) {
       // LOGGLY.log({
