@@ -14,7 +14,6 @@ import Path from 'path';
 const _ = require('lodash');
 // const Useragent = require('useragent');
 
-// import WebpackPlugin from 'hapi-webpack-plugin';
 
 // TODO : how about having id for every server session. and give that id for logs?
 global.SERVER = new Hapi.Server();
@@ -112,7 +111,7 @@ SERVER.register(
       engines: { html: require('handlebars') },
       layout : true,
       path: Path.resolve(__dirname, 'client/views'),
-      layoutPath : Path.resolve(__dirname, 'client/views/layouts'), //setting Global Layout,
+      layoutPath : Path.resolve(__dirname, 'public/dist'), //setting Global Layout,
       partialsPath : Path.resolve(__dirname,'client/partials') //partial Views
     });
 });

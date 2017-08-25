@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "JavaScript development environment",
   "scripts": {
-    "predev-start": "npm-run-all --parallel prestartjs removeBuild",
     "prestartjs": "babel-node scripts/preStart.js",
-    "dev-start": "npm-run-all --parallel security-check lint:watch initServer test:watch build-dev",
+    "predevStart": "npm-run-all --parallel prestartjs removeBuild build-dev",
+    "devStart": "npm-run-all --parallel security-check initServer lint:watch test:watch",
+    "prestart": "npm-run-all --parallel prestartjs lint test removeBuild",
     "start": "npm-run-all --parallel security-check lint initServer test build-prod",
     "initServer": "babel-node server.js",
     "security-check": "nsp check",
