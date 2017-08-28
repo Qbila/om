@@ -11,7 +11,8 @@ module.exports = {
   devtool: 'source-map',
   output: {
     path: Path.resolve(__dirname, 'public/dist'),
-    filename: '[name].[hash].js'
+    filename: '[name].[hash].js',
+    publicPath: '/public/dist'
   },
   resolve : {
     extensions : ['.js', '.jsx', '.json']

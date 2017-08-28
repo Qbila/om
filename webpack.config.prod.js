@@ -1,6 +1,7 @@
 const Path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
@@ -10,12 +11,15 @@ module.exports = {
   devtool: 'source-map',
   output: {
     path: Path.resolve(__dirname, 'public/dist'),
-    filename: '[name].[hash].js'
+    filename: '[name].[hash].js',
+    publicPath: '/public/dist'
   },
   resolve : {
     extensions : ['.js', '.jsx', '.json']
   },
   plugins: [
+    new ExtractTextPlugin('[name].[hash].css'),
+
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor'
     }),
@@ -49,7 +53,11 @@ module.exports = {
   module: {
     loaders: [
       { test: /\.js$/, exclude: /node_modules/, loaders: ['babel-loader'] },
-      { test: /\.css$/, loaders: ['style-loader', 'css-loader'] }
+      { test: /\.css$/, loader: ExtractTextPlugin.extract({
+          fallback: "style-loader",
+          use: "css-loader"
+        })
+      }
     ]
   }
 };
