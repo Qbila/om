@@ -25,7 +25,7 @@ switch(process.env.NODE_ENV) {
     global.DATASERVER = 'http://' + process.env.DATASERVER_LOCAL_HOST  + ':' + process.env.DATASERVER_LOCAL_PORT;
     SERVER.connection({
       host: '0.0.0.0',
-      port: process.env.PORT||3000
+      port: process.env.PORT||1337
     });
     break;
 
@@ -33,7 +33,7 @@ switch(process.env.NODE_ENV) {
     global.DATASERVER = 'http://' + process.env.DATASERVER_SERVER_HOST  + ':' + process.env.DATASERVER_SERVER_PORT;
     SERVER.connection({
       host: '0.0.0.0',
-      port: process.env.PORT||3000
+      port: process.env.PORT||1337
     });
     break;
 }
@@ -128,6 +128,7 @@ SERVER.ext('onPreAuth', function(request, reply) {
 
 
 SERVER.ext('onPreResponse', function(request, reply){
+  console.log(request.route.path);
   // if (request.route.path !== '/public/{path*}' && request.route.path !== '/{p*}') {
   //   // // get all the users role and posting data
   //   // LOGGLY.log({
