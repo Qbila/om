@@ -2,12 +2,12 @@ exports.register = function(server, options, next) {
   server.route([
     {
       method : 'GET',
-      path : '/error/pagenotfound',
+      path : '/welcome',
       handler : function(request, reply){
 
         reply.view(
-          'error/pagenotfound',
-          { title : 'Page Not Found' }
+          'citizens/welcome.html',
+          { title : 'Welcome to Qbila' }
         );
       }
 
