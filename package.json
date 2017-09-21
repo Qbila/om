@@ -49,9 +49,7 @@
     "request": "^2.81.0",
     "useragent": "^2.1.13",
     "vision": "^4.1.1",
-    "zingchart": "^2.6.1"
-  },
-  "devDependencies": {
+    "zingchart": "^2.6.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-istanbul": "^0.12.2",
