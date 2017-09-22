@@ -9,3 +9,5 @@ node_modules/
 
 # files built for distribution
 public/dist/
+
+npm-debug.log
