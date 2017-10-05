@@ -18,7 +18,7 @@
     "test": "mocha scripts/testSetup.js 'modules/**/*.test.js' 'public/js/**/*.test.js'",
     "test:watch": "npm run test -- --watch",
     "removeBuild": "rm -rf public/dist",
-    "security-check": "nsp check",
+    "security-check": "nsp check --warn-only",
     "share": "npm-run-all --parallel localtunnel",
     "start": "npm-run-all --parallel initServer lint test"
   },
